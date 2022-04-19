@@ -1,6 +1,8 @@
 package br.com.chronosAcademy.automacaoWeb;
 
 import br.com.chronosAcademy.core.Driver;
+import br.com.chronosAcademy.pages.CursoPage;
+import br.com.chronosAcademy.pages.PrincipalPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -9,39 +11,42 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.w3c.dom.html.HTMLInputElement;
 
 import java.io.IOException;
-
 import static org.junit.Assert.assertEquals;
 
 public class testeWeb {
     WebDriver driver;
     Driver driverWeb;
+   PrincipalPage principalPage;
+    CursoPage cursoPage;
 
-    //WebDriver driver;
     @Before
     public void inicializarTeste() throws IOException {
-        //WebDriverManager.chromedriver().setup();
-        driverWeb = new Driver("iedriver");
+       // WebDriverManager.chromedriver().setup();
+        driverWeb = new Driver("chrome");
         driver = driverWeb.getDriver();
         driver.get("https://www.chronosacademy.com.br");
+        principalPage = new PrincipalPage(driver);
 
+       // cursoPage = new CursoPage(driver);
     }
+
     @Test
-    public void primeiroTeste(){
+    public void primeiroTeste() {
+        assertEquals("Porque Tempo É Conhecimento",principalPage.getTitulo());
+    }
 
-
-       // String xpathTitulo = "//html/body/div/div/div/div/div/section[2]/div[3]/div/div/div/div/div[1]/div/h4";
-        String xpathTitulo = "//section[2]//h4";
-        WebElement txtTitulo = driver.findElement(By.xpath(xpathTitulo));
-        String titulo = txtTitulo.getText();
-        assertEquals("Porque Tempo É Conhecimento",titulo);
-    
-
+    @Test
+    public void segundoTeste(){
+        cursoPage= new CursoPage(driver);
+        principalPage.clickBotao();
+        assertEquals("Conheça todos os nossos cursos", cursoPage.getTitulo2());
     }
 
     @After
-    public void finalizarTeste(){
+    public void finalizarTeste() {
         driver.quit();
     }
 }
