@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerDriverService;
+
 
 import java.io.IOException;
 
@@ -14,35 +14,30 @@ public class Driver<driver> {
 
     public Driver(String navegador) throws IOException {
 
-              switch (navegador){
-                  case "chrome":
-                      WebDriverManager.chromedriver().setup();
-                      driver = new ChromeDriver();
-                      break;
-                  case "ie":
-                      WebDriverManager.iedriver().setup();
-                      driver = new InternetExplorerDriver();
-                      break;
-                  case "firefox":
-                      WebDriverManager.firefoxdriver().setup();
-                      driver= new FirefoxDriver();
-                      break;
-                  case "edge":
-                      WebDriverManager.edgedriver().setup();
-                      driver= new FirefoxDriver();
-                      break;
-                  default:
-                      WebDriverManager.chromedriver().setup();
-                      driver = new ChromeDriver();
-                      break;
-                      }
-                  driver.manage().window().maximize();
+        switch (navegador) {
+            case "chrome":
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                break;
+            case "ie":
+                WebDriverManager.iedriver().setup();
+                driver = new InternetExplorerDriver();
+                break;
+            case "firefox":
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+                break;
+            case "edge":
+                WebDriverManager.edgedriver().setup();
+                driver = new FirefoxDriver();
+                break;
+            default:
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                break;
+        }
+        driver.manage().window().maximize();
     }
-      //  WebDriverManager.chromedriver().setup();
-       // driver = new ChromeDriver();
-       // driver.manage().window().maximize();
-
-
     public WebDriver getDriver() {
         return driver;
     }
